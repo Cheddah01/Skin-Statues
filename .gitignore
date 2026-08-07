@@ -1,5 +1,11 @@
 target/
 *.iml
+*.log
+*.tmp
+*.swp
 .idea/
 .vscode/
+.classpath
+.project
+.settings/
 .DS_Store
