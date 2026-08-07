@@ -2,14 +2,17 @@
 
 > Turn any Minecraft player's skin into a towering, fully 3D block statue directly in your world.
 
-This directory contains the SkinStatues Fabric implementation targeting
+This directory contains SkinStatues **1.1.0** for Fabric, targeting
 **Minecraft 26.1.2**. For other Minecraft versions, see the
 [Fabric overview](../README.md).
 
 SkinStatues for Fabric converts modern or legacy Minecraft skins into full block
 models with a head, torso, arms, and legs. It supports classic and slim arms,
-transparent pixels, optional outer layers, perceptual block-color matching,
+transparent pixels, optional outer layers, refined natural-tone block matching,
 incremental construction, and a conservative one-statue undo.
+
+This version does not include the optional client menu available in the
+Minecraft 26.2 build. Commands remain fully available through the server.
 
 ## Requirements
 

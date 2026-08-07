@@ -2,7 +2,7 @@
 
 > Turn any Minecraft player's skin into a towering, fully 3D block statue directly in your world.
 
-SkinStatues is available for multiple Minecraft versions. Download the build
+SkinStatues 1.1.0 is available for multiple Minecraft versions. Download the build
 matching the Minecraft version used by your server or game.
 
 > **Warning:** Fabric builds are version-specific. A JAR built for one
@@ -11,10 +11,10 @@ matching the Minecraft version used by your server or game.
 
 ## Supported Versions
 
-| Minecraft | Status    |
-| --------- | --------- |
-| [26.2](./26.2/) | Supported |
-| [26.1.2](./26.1.2/) | Supported |
+| Minecraft | SkinStatues | Optional Client GUI |
+| --------- | ----------- | ------------------- |
+| [26.2](./26.2/) | 1.1.0 | Yes |
+| [26.1.2](./26.1.2/) | 1.1.0 | No |
 
 Minecraft 26.2 includes an optional client-side command menu with a rebindable
 `[` shortcut. Fabric 26.1.2 does not include that client menu yet. Both builds
@@ -28,9 +28,10 @@ commands, configuration, and build-from-source instructions.
 - Full 3D skin geometry with head, torso, arms, and legs
 - Classic and slim arm model support
 - Optional outer skin layers (hats, jackets, sleeves, pants)
-- Perceptual block-color palette matching using vanilla blocks
+- Refined 53-block color palette with improved natural skin-tone matching
 - Incremental, server-friendly construction and safe statue undo
-- Entirely server-side — connecting players need no client mod
+- Server-only operation on both versions; connecting players need no client mod
+- Optional command-backed client menu on Minecraft 26.2
 
 ## Maintenance model
 

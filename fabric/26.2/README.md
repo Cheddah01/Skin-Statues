@@ -2,13 +2,13 @@
 
 > Turn any Minecraft player's skin into a towering, fully 3D block statue directly in your world.
 
-This directory contains the SkinStatues Fabric implementation targeting
+This directory contains SkinStatues **1.1.0** for Fabric, targeting
 **Minecraft 26.2**. For other Minecraft versions, see the
 [Fabric overview](../README.md).
 
 SkinStatues for Fabric converts modern or legacy Minecraft skins into full block
 models with a head, torso, arms, and legs. It supports classic and slim arms,
-transparent pixels, optional outer layers, perceptual block-color matching,
+transparent pixels, optional outer layers, refined natural-tone block matching,
 incremental construction, and a conservative one-statue undo.
 
 Minecraft 26.2 also includes an optional client-side convenience menu. The
@@ -44,7 +44,8 @@ and Fabric API in their client. Press `[` in-game to open the SkinStatues menu.
 The default key can be changed under Minecraft's **Controls > Key Binds**
 settings in the **SkinStatues** category.
 
-The menu provides a player-name field, a scale field, **Create Statue**, and
+The compact, centered menu provides a **Player** field, a **Scale** field,
+**Create Statue**, and
 **Undo Last Statue**. It sends the normal `statue <name> <scale>` or
 `statue undo` command to the connected server; it does not download skins,
 plan statues, track undo state, or bypass server permissions on the client.

@@ -2,7 +2,7 @@
 
 > Turn any Minecraft player's skin into a towering, fully 3D block statue directly in your world.
 
-SkinStatues is a Paper server plugin that converts Minecraft player skins into
+SkinStatues 1.1.0 is a Paper server plugin that converts Minecraft player skins into
 large block structures. Each statue uses full player geometry, including the
 head, body, arms, legs, and optional outer skin layers.
 
@@ -14,7 +14,7 @@ head, body, arms, legs, and optional outer skin layers.
 - Render hats, jackets, sleeves, and pants as a clean one-block outer shell at every scale.
 - Respect transparent skin pixels.
 - Choose statue scale within a configurable limit.
-- Match skin colors against a curated Minecraft block palette.
+- Match skin colors against a refined 53-block palette with improved natural skin tones.
 - Place statues on the world grid facing the player who creates them.
 - Process skins asynchronously and build statues incrementally instead of editing the world in one large tick.
 - Cache resolved skins in memory for faster repeated use.
@@ -83,6 +83,11 @@ SkinStatues resolves the requested player's skin, maps its pixels onto a full
 3D player model, matches visible colors to suitable Minecraft blocks, and
 builds the result incrementally in the world. Transparent pixels are skipped,
 slim arms are supported, and skin overlays are rendered as a thin outer shell.
+
+The curated palette uses concrete, plain and dyed terracotta, wool, Smooth
+Quartz, Smooth Sandstone, Stripped Jungle Log, and Brown Mushroom Block. These
+solid materials provide cleaner pale, cream, tan, Steve-range, and shaded skin
+tones without introducing noisy metallic, ore, or heavily patterned blocks.
 
 The statue is aligned to the nearest cardinal direction, placed in front of
 the creator, and faces back toward them.
