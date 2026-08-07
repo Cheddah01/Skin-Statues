@@ -1,7 +1,6 @@
 package com.cozycrafters.cozystatues.statue;
 
 import com.cozycrafters.cozystatues.StatuesConfig;
-import com.cozycrafters.cozystatues.model.ModelBounds;
 import com.cozycrafters.cozystatues.model.PlayerModel;
 import com.cozycrafters.cozystatues.skin.ResolvedSkin;
 import com.cozycrafters.cozystatues.skin.SkinLookupException;
@@ -67,9 +66,9 @@ public final class StatueService {
             try {
                 ResolvedSkin skin = skins.resolve(name);
                 PlayerModel model = PlayerModel.of(skin.texture().model(), config.outerLayer());
-                ModelBounds bounds = model.bounds();
+                StatuePlanner.Dimensions dimensions = planner.dimensions(model, scale);
                 StatuePlacement placement = PlacementCalculator.compute(
-                        x, y, z, yaw, bounds.width() * scale, bounds.depth() * scale);
+                        x, y, z, yaw, dimensions.width(), dimensions.depth());
                 StatuePlan plan = planner.plan(skin.texture(), model, scale, placement, minY, maxY);
                 sync(() -> start(player, skin, plan, world, builder));
             } catch (SkinLookupException ex) {

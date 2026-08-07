@@ -46,6 +46,24 @@ public final class TextureMapper {
         int ty = clamp(ly - box.inflate(), h);
         int tz = clamp(lz - box.inflate(), d);
 
+        return texelAt(box, region, face, tx, ty, tz);
+    }
+
+    /**
+     * Maps already-normalised texture coordinates to a face texel. This is
+     * used by world-space outer shells, whose surface pixels are scaled while
+     * their outward displacement remains one block.
+     */
+    public static Texel texelAt(ModelBox box, TextureRegion region, BoxFace face,
+                                int tx, int ty, int tz) {
+        int w = box.texWidth();
+        int h = box.texHeight();
+        int d = box.texDepth();
+
+        tx = clamp(tx, w);
+        ty = clamp(ty, h);
+        tz = clamp(tz, d);
+
         BoxFace sampled = face;
         if (region.mirrored()) {
             tx = w - 1 - tx;
