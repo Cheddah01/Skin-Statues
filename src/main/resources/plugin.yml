@@ -8,9 +8,9 @@ description: Turns any Minecraft player's skin into a giant 3D block statue.
 # plain HTTPS download, so CozyStatues depends on nothing but the server.
 commands:
   statue:
-    description: Builds a giant block statue of a player's skin in front of you.
-    usage: /<command> <name> <scale>
+    description: Builds a giant block statue or undoes your latest completed one.
+    usage: /<command> <name> <scale> | /<command> undo
 permissions:
   cozystatues.use:
-    description: Allows building statues with /statue.
+    description: Allows building and undoing statues with /statue.
     default: op

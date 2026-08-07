@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -33,21 +34,28 @@ public final class StatueService {
     private final StatuePlacer placer;
     private final StatuesConfig config;
     private final StatuePlanner planner;
-    private final Set<UUID> building = ConcurrentHashMap.newKeySet();
+    private final StatueUndoStore undoStore;
+    private final Set<UUID> operations = ConcurrentHashMap.newKeySet();
 
     public StatueService(JavaPlugin plugin, SkinService skins, StatuePlacer placer, StatuesConfig config) {
+        this(plugin, skins, placer, config, new StatueUndoStore());
+    }
+
+    StatueService(JavaPlugin plugin, SkinService skins, StatuePlacer placer,
+                  StatuesConfig config, StatueUndoStore undoStore) {
         this.plugin = plugin;
         this.skins = skins;
         this.placer = placer;
         this.config = config;
+        this.undoStore = undoStore;
         this.planner = new StatuePlanner(config.palette());
     }
 
     /** Starts a statue for {@code player}. Call on the server thread. */
     public void generate(Player player, String name, int scale) {
         UUID builder = player.getUniqueId();
-        if (!building.add(builder)) {
-            player.sendMessage(Text.error("Your last statue is still being built."));
+        if (!beginOperation(builder)) {
+            player.sendMessage(Text.error("Please wait for your current statue operation to finish."));
             return;
         }
 
@@ -74,13 +82,13 @@ public final class StatueService {
             } catch (SkinLookupException ex) {
                 // Expected, player-facing failures: no stack trace, no console spam.
                 sync(() -> {
-                    building.remove(builder);
+                    operations.remove(builder);
                     tell(player, Text.error(ex.getMessage()));
                 });
             } catch (RuntimeException ex) {
                 plugin.getLogger().log(Level.SEVERE, "Failed to plan a statue of '" + name + "'.", ex);
                 sync(() -> {
-                    building.remove(builder);
+                    operations.remove(builder);
                     tell(player, Text.error("The statue could not be built. Check the server console."));
                 });
             }
@@ -88,24 +96,124 @@ public final class StatueService {
     }
 
     public int activeBuilds() {
-        return building.size();
+        return operations.size();
     }
 
-    private void start(Player player, ResolvedSkin skin, StatuePlan plan, World world, UUID builder) {
+    /** Restores the player's most recently completed statue. */
+    public void undo(Player player) {
+        UUID playerId = player.getUniqueId();
+        if (!beginOperation(playerId)) {
+            player.sendMessage(Text.error("Please wait for your current statue operation to finish."));
+            return;
+        }
+
+        StatueUndoStore.UndoRecord record = undoStore.target(playerId);
+        if (record == null) {
+            operations.remove(playerId);
+            player.sendMessage(Text.error("You don't have a statue to undo."));
+            return;
+        }
+        World world = Bukkit.getWorld(record.worldId());
+        if (world == null) {
+            operations.remove(playerId);
+            player.sendMessage(Text.error("That statue's world is not currently available."));
+            return;
+        }
+
+        player.sendMessage(Text.info("Undoing your last statue..."));
+        StatueUndoStore.Restoration restoration = undoStore.restoration(world, record);
+        try {
+            placer.restore(world, restoration, config.blocksPerTick(), result -> {
+                operations.remove(playerId);
+                if (!result.complete()) {
+                    tell(player, Text.error("The statue could not be undone; please try again."));
+                    return;
+                }
+                undoStore.finishUndo(playerId, record);
+                tell(player, Text.success("Your last statue has been undone."));
+            });
+        } catch (RuntimeException ex) {
+            operations.remove(playerId);
+            plugin.getLogger().log(Level.SEVERE, "Failed to start statue undo.", ex);
+            tell(player, Text.error("The statue could not be undone; please try again."));
+        }
+    }
+
+    /** Clears all in-memory operation, undo and ownership state on disable. */
+    public void clear() {
+        operations.clear();
+        undoStore.clear();
+    }
+
+    public int undoTargets() {
+        return undoStore.targetCount();
+    }
+
+    public int ownedBlocks() {
+        return undoStore.ownershipCount();
+    }
+
+    boolean beginOperation(UUID playerId) {
+        return operations.add(playerId);
+    }
+
+    void finishOperation(UUID playerId) {
+        operations.remove(playerId);
+    }
+
+    void start(Player player, ResolvedSkin skin, StatuePlan plan, World world, UUID builder) {
         if (plan.blockCount() == 0) {
-            building.remove(builder);
+            operations.remove(builder);
             tell(player, Text.error("That skin is fully transparent; there is nothing to build."));
             return;
         }
-        placer.place(world, plan, config.blocksPerTick(), placed -> {
-            building.remove(builder);
-            if (placed < plan.blockCount()) {
-                tell(player, Text.error("The statue could not be finished; its world was unloaded."));
-                return;
-            }
-            tell(player, Text.success("Statue of &f" + skin.profile().name()
-                    + "&a created &7(" + placed + " blocks, " + plan.heightBlocks() + " tall)."));
-        });
+        StatueUndoStore.Capture capture = undoStore.begin(world.getUID());
+        try {
+            placer.place(world, plan, capture, config.blocksPerTick(), result -> {
+                if (!result.complete() || result.processed() < plan.blockCount()) {
+                    rollbackFailedBuild(player, world, builder, capture);
+                    return;
+                }
+                undoStore.complete(builder, capture);
+                operations.remove(builder);
+                tell(player, Text.success("Statue of &f" + skin.profile().name()
+                        + "&a created &7(" + plan.blockCount() + " blocks, " + plan.heightBlocks() + " tall)."));
+            });
+        } catch (RuntimeException ex) {
+            undoStore.abort(capture);
+            operations.remove(builder);
+            plugin.getLogger().log(Level.SEVERE, "Failed to start statue placement.", ex);
+            tell(player, Text.error("The statue could not be built. Check the server console."));
+        }
+    }
+
+    private void rollbackFailedBuild(Player player, World world, UUID builder,
+                                     StatueUndoStore.Capture capture) {
+        World loaded = Bukkit.getWorld(world.getUID());
+        if (loaded == null || capture.changeCount() == 0) {
+            undoStore.abort(capture);
+            operations.remove(builder);
+            tell(player, Text.error("The statue could not be finished; its world was unloaded."));
+            return;
+        }
+
+        StatueUndoStore.Restoration rollback = undoStore.restoration(loaded, capture.snapshot());
+        try {
+            placer.restore(loaded, rollback, config.blocksPerTick(), result -> {
+                undoStore.abort(capture);
+                operations.remove(builder);
+                if (result.complete()) {
+                    tell(player, Text.error("The statue could not be finished and was rolled back."));
+                } else {
+                    tell(player, Text.error("The statue could not be finished; cleanup was interrupted."));
+                }
+            });
+        } catch (RuntimeException ex) {
+            undoStore.abort(capture);
+            operations.remove(builder);
+            plugin.getLogger().log(Level.SEVERE, "Failed to start partial statue rollback.", ex);
+            tell(player, Text.error("The statue could not be finished; cleanup was interrupted."));
+        }
     }
 
     private static void tell(Player player, Component message) {

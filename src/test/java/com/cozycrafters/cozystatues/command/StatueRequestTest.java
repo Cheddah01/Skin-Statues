@@ -31,6 +31,14 @@ class StatueRequestTest {
     }
 
     @Test
+    void undoIsTheSpecialOneArgumentRequest() {
+        assertInstanceOf(Result.Undo.class, parse("undo"));
+        assertInstanceOf(Result.Undo.class, parse("UNDO"));
+        assertEquals("undo", ok("undo", "2").playerName(),
+                "the existing two-argument player-name form remains valid");
+    }
+
+    @Test
     void theNameIsPassedThroughExactlyAsTyped() {
         assertEquals("Player_One", ok("Player_One", "1").playerName());
         assertEquals("aBcDeF123456789_", ok("aBcDeF123456789_", "1").playerName());

@@ -3,7 +3,7 @@ package com.cozycrafters.cozystatues.command;
 import java.util.regex.Pattern;
 
 /**
- * A validated {@code /statue <name> <scale>} invocation.
+ * A validated {@code /statue <name> <scale>} or {@code /statue undo} invocation.
  *
  * <p>Parsing is a pure function of the arguments and the configured maximum, so
  * the whole command surface can be tested without a server.
@@ -16,11 +16,14 @@ public record StatueRequest(String playerName, int scale) {
     /** Whole numbers only: this rejects "2.5", "-1", "1e3" and "two" alike. */
     private static final Pattern WHOLE_NUMBER = Pattern.compile("\\d{1,9}");
 
-    public static final String USAGE = "Usage: /statue <name> <scale>";
+    public static final String USAGE = "Usage: /statue <name> <scale> or /statue undo";
 
     public sealed interface Result {
 
         record Ok(StatueRequest request) implements Result {
+        }
+
+        record Undo() implements Result {
         }
 
         record Error(String message) implements Result {
@@ -28,6 +31,9 @@ public record StatueRequest(String playerName, int scale) {
     }
 
     public static Result parse(String[] args, int maxScale) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("undo")) {
+            return new Result.Undo();
+        }
         if (args.length != 2) {
             return new Result.Error(USAGE);
         }

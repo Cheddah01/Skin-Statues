@@ -24,9 +24,12 @@ with every skin colour matched to the closest suitable building block.
 
 ```
 /statue <name> <scale>
+/statue undo
 ```
 
-That is the whole command surface.
+That is the whole command surface. `undo` incrementally restores the blocks
+replaced by your most recently completed statue. Undo data is kept in memory
+only and is cleared by a restart or reload.
 
 - `<name>` — any Minecraft username. The player does not have to be online, or
   to have ever joined the server.
@@ -70,7 +73,7 @@ defaults on every start, so upgrades never overwrite your changes.
 | Key | Default | Meaning |
 | --- | --- | --- |
 | `max-scale` | `4` | Largest scale `/statue` accepts. Hard limit 16. |
-| `blocks-per-tick` | `2500` | Blocks placed per tick while building. |
+| `blocks-per-tick` | `2500` | Blocks processed per tick while building or undoing. |
 | `outer-layer` | `true` | Build the hat, jacket, sleeves and pants as a second, one-block-larger shell. |
 | `skin-cache-minutes` | `60` | How long a resolved skin is reused before it is fetched again. |
 | `palette.excluded` | `[]` | Material names to drop from the built-in palette. |
@@ -88,10 +91,10 @@ redstone, hold an inventory or need support.
 ## Performance
 
 Profile lookup, texture download, image decoding and the entire statue plan run
-off the server thread. Only block placement touches the world, in batches of
-`blocks-per-tick`, with physics suppressed. Nothing is placed until the whole
-plan has been built successfully, so a failed lookup never leaves half a statue
-standing.
+off the server thread. Block placement and undo restoration touch the world in
+batches of `blocks-per-tick`, with physics suppressed. Nothing is placed until
+the whole plan has been built successfully, so a failed lookup never leaves
+half a statue standing.
 
 The statue is a hollow shell — only the outside of each body box is placed, and
 at scale `s` that shell is `s` blocks thick. A scale 4 statue is roughly 75,000
@@ -121,6 +124,6 @@ blocks and takes about half a minute of build time at the default rate.
 ## Not in this phase
 
 Deliberately absent, and structured so they can be added cleanly later:
-removal or undo, statue persistence and management, poses, held items, armour,
+statue persistence and management, poses, held items, armour,
 alternative palettes per statue, and any GUI. The command surface is meant to
-stay exactly `/statue <name> <scale>`.
+stay exactly `/statue <name> <scale>` and `/statue undo`.

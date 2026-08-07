@@ -18,3 +18,6 @@ First release.
 - Skins resolved through Paper's profile API with caching, working for offline
   players; all lookup, download, decoding and planning happen off the server
   thread, and blocks are placed in configurable per-tick batches.
+- `/statue undo` restores the original block-state snapshots for the player's
+  latest completed statue in batches, while protecting newer or manually
+  changed blocks from stale undo operations.

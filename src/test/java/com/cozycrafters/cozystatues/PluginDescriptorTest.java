@@ -39,7 +39,8 @@ class PluginDescriptorTest {
         ConfigurationSection commands = descriptor.getConfigurationSection("commands");
         assertNotNull(commands);
         assertEquals(java.util.Set.of("statue"), commands.getKeys(false));
-        assertEquals("/<command> <name> <scale>", commands.getString("statue.usage"));
+        assertEquals("/<command> <name> <scale> | /<command> undo",
+                commands.getString("statue.usage"));
     }
 
     @Test

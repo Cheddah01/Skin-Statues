@@ -50,6 +50,9 @@ public final class CozyStatuesPlugin extends JavaPlugin {
             if (placer != null) {
                 placer.cancelAll();
             }
+            if (statues != null) {
+                statues.clear();
+            }
             if (skins != null) {
                 skins.clear();
             }
