@@ -1,4 +1,7 @@
 target/
+fabric/.gradle/
+fabric/build/
+fabric/run/
 *.iml
 *.log
 *.tmp

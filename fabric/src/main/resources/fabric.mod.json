@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "skinstatues",
+  "version": "${version}",
+  "name": "SkinStatues",
+  "description": "Turns any Minecraft player's skin into a giant 3D block statue.",
+  "authors": ["Cozy Crafters"],
+  "contact": {
+    "homepage": "https://github.com/Cheddah01/Skin-Statues",
+    "sources": "https://github.com/Cheddah01/Skin-Statues",
+    "issues": "https://github.com/Cheddah01/Skin-Statues/issues"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.cozycrafters.skinstatues.fabric.SkinStatuesFabric"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.1.2",
+    "java": ">=25",
+    "fabric-api": ">=0.155.2+26.1.2"
+  }
+}

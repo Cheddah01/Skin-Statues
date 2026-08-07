@@ -1,0 +1,10 @@
+{
+  "maxScale": 4,
+  "blocksPerTick": 2500,
+  "outerLayer": true,
+  "skinCacheMinutes": 60,
+  "palette": {
+    "excluded": [],
+    "extra": {}
+  }
+}
