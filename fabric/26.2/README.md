@@ -1,9 +1,9 @@
-# SkinStatues Fabric for Minecraft 26.1.2
+# SkinStatues Fabric for Minecraft 26.2
 
 > Turn any Minecraft player's skin into a towering, fully 3D block statue directly in your world.
 
 This directory contains the SkinStatues Fabric implementation targeting
-**Minecraft 26.1.2**. For other Minecraft versions, see the
+**Minecraft 26.2**. For other Minecraft versions, see the
 [Fabric overview](../README.md).
 
 SkinStatues for Fabric converts modern or legacy Minecraft skins into full block
@@ -13,10 +13,10 @@ incremental construction, and a conservative one-statue undo.
 
 ## Requirements
 
-- Minecraft Java Edition 26.1.2
+- Minecraft Java Edition 26.2
 - Java 25
 - Fabric Loader 0.19.3 or newer compatible 0.19.x release
-- Fabric API 0.155.2+26.1.2 or newer release for Minecraft 26.1.2
+- Fabric API 0.156.0+26.2 or newer release for Minecraft 26.2
 
 This is a server-authoritative mod made entirely from vanilla blocks. Install
 SkinStatues and Fabric API on the server. Connecting players do not need
@@ -26,9 +26,9 @@ Fabric API are installed in that instance.
 
 ## Installation
 
-1. Install Fabric Loader for Minecraft 26.1.2 on the server.
-2. Add Fabric API for Minecraft 26.1.2 to the server's `mods` directory.
-3. Add `SkinStatues-Fabric-26.1.2.jar` to the same directory.
+1. Install Fabric Loader for Minecraft 26.2 on the server.
+2. Add Fabric API for Minecraft 26.2 to the server's `mods` directory.
+3. Add `SkinStatues-Fabric-26.2.jar` to the same directory.
 4. Start the server.
 
 ## Commands
@@ -88,13 +88,13 @@ are cleared when the server stops.
 Java 25 is required. From the repository root:
 
 ```shell
-cd fabric/26.1.2
+cd fabric/26.2
 ./gradlew clean test
 ./gradlew build
 ```
 
 The production mod is written to
-`build/libs/SkinStatues-Fabric-26.1.2.jar`.
+`build/libs/SkinStatues-Fabric-26.2.jar`.
 The similarly named `-sources.jar` is source code for development and is not
 the server mod.
 

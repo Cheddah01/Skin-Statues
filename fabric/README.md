@@ -11,9 +11,10 @@ matching the Minecraft version used by your server or game.
 
 ## Supported Versions
 
-| Minecraft | SkinStatues | Status    |
-| --------- | ----------- | --------- |
-| [26.1.2](./26.1.2/) | 1.0.0 | Supported |
+| Minecraft | Status    |
+| --------- | --------- |
+| [26.2](./26.2/) | Supported |
+| [26.1.2](./26.1.2/) | Supported |
 
 Each version directory contains its own documentation, including installation,
 commands, configuration, and build-from-source instructions.
