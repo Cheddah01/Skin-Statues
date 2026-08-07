@@ -67,7 +67,8 @@ class BlockPaletteTest {
     @Test
     void theBuiltInPaletteIsBalancedAndFreeOfDuplicates() {
         BlockPalette palette = BlockPalette.defaults();
-        assertEquals(49, palette.size(), "the curated set contains concrete, terracotta, and wool");
+        assertEquals(53, palette.size(),
+                "the curated set contains concrete, terracotta, wool, and the natural-tone extension");
 
         Set<Material> materials = new java.util.HashSet<>();
         Set<Integer> colours = new java.util.HashSet<>();
@@ -111,8 +112,8 @@ class BlockPaletteTest {
                 Map.entry(0xA0A0A0, Material.LIGHT_GRAY_WOOL),
                 Map.entry(0x454545, Material.GRAY_WOOL),
                 Map.entry(0x101010, Material.BLACK_CONCRETE),
-                Map.entry(0xF2C6A0, Material.WHITE_TERRACOTTA),
-                Map.entry(0xC58C62, Material.TERRACOTTA),
+                Map.entry(0xF2C6A0, Material.SMOOTH_SANDSTONE),
+                Map.entry(0xC58C62, Material.STRIPPED_JUNGLE_LOG),
                 Map.entry(0x8D5524, Material.ORANGE_TERRACOTTA),
                 Map.entry(0x4A2C1A, Material.BROWN_TERRACOTTA),
                 Map.entry(0xD8788C, Material.PINK_WOOL),
@@ -126,6 +127,31 @@ class BlockPaletteTest {
                 Map.entry(0x7B4AA8, Material.PURPLE_WOOL));
         mappings.forEach((rgb, material) -> assertEquals(material, palette.nearest(rgb),
                 () -> "unexpected mapping for #%06X".formatted(rgb)));
+    }
+
+    @Test
+    void naturalSkinTonesResolveAcrossTheWarmRamp() {
+        BlockPalette palette = BlockPalette.defaults();
+        // The cream-to-brown ramp a face renders through. Entries marked "was"
+        // changed when the natural-tone blocks were added in front of the muddy
+        // dyed fallbacks; the rest pin the tones the dyed families already
+        // served well.
+        Map<Integer, Material> mappings = Map.ofEntries(
+                Map.entry(0xFAE7D0, Material.SMOOTH_QUARTZ), // cream, was WHITE_WOOL
+                Map.entry(0xF5D6B8, Material.SMOOTH_SANDSTONE), // very pale peach, was WHITE_TERRACOTTA
+                Map.entry(0xF2C6A0, Material.SMOOTH_SANDSTONE), // pale peach, was WHITE_TERRACOTTA
+                Map.entry(0xE4AD83, Material.WHITE_TERRACOTTA), // warm peach
+                Map.entry(0xD9B08C, Material.WHITE_TERRACOTTA), // beige
+                Map.entry(0xC98C68, Material.STRIPPED_JUNGLE_LOG), // light tan, was TERRACOTTA
+                Map.entry(0xB58D6E, Material.STRIPPED_JUNGLE_LOG), // medium tan, was WHITE_TERRACOTTA
+                Map.entry(0xB07B54, Material.STRIPPED_JUNGLE_LOG), // tan-brown, was TERRACOTTA
+                Map.entry(0x96714F, Material.BROWN_MUSHROOM_BLOCK), // shaded tan, was TERRACOTTA
+                Map.entry(0xA96F50, Material.TERRACOTTA), // warm brown
+                Map.entry(0x8D5524, Material.ORANGE_TERRACOTTA), // medium brown
+                Map.entry(0x754A38, Material.BROWN_WOOL), // dark brown
+                Map.entry(0x5C3A21, Material.BROWN_CONCRETE)); // deep brown
+        mappings.forEach((rgb, material) -> assertEquals(material, palette.nearest(rgb),
+                () -> "unexpected skin-tone mapping for #%06X".formatted(rgb)));
     }
 
     @Test

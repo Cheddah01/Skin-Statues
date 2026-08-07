@@ -8,10 +8,12 @@ import net.minecraft.world.level.block.Blocks;
 /**
  * The curated built-in palette.
  *
- * <p>Every entry comes from one of three visually coherent pixel-art families:
- * concrete, terracotta, and wool. Metallic, mineral, decorative, directional,
- * and strongly patterned blocks are deliberately excluded even when their
- * average colour is numerically closer to a skin texel.
+ * <p>Every entry comes from one of three visually coherent pixel-art families
+ * — concrete, terracotta, and wool — plus a small curated set of quiet natural
+ * tones that fill the cream/peach/tan gap the dyed families leave, which is the
+ * range player faces live in. Metallic, mineral, decorative, and strongly
+ * patterned blocks are deliberately excluded even when their average colour is
+ * numerically closer to a skin texel.
  *
  * <p>Colours represent each block's in-world appearance. They are only ever
  * used for nearest-colour matching, so small inaccuracies shift a pixel to a
@@ -81,6 +83,15 @@ public final class DefaultPalette {
         colors.put(Blocks.GREEN_WOOL, 0x546D1B);
         colors.put(Blocks.RED_WOOL, 0xA02722);
         colors.put(Blocks.BLACK_WOOL, 0x141519);
+
+        // Natural tones: the dyed families jump from white terracotta straight
+        // to terracotta, which turns pale and tan skin muddy. These four quiet
+        // blocks fill that cream-to-tan ramp without reintroducing metallic or
+        // patterned materials.
+        colors.put(Blocks.SMOOTH_QUARTZ, 0xEDE6E0);
+        colors.put(Blocks.SMOOTH_SANDSTONE, 0xE0D6AA);
+        colors.put(Blocks.STRIPPED_JUNGLE_LOG, 0xAB8555);
+        colors.put(Blocks.BROWN_MUSHROOM_BLOCK, 0x957051);
 
         return colors;
     }

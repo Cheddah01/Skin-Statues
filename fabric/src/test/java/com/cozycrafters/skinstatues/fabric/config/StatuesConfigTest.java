@@ -51,7 +51,7 @@ class StatuesConfigTest {
         Files.writeString(file, "{\"maxScale\":\"nope\",\"palette\":4}");
         StatuesConfig config = StatuesConfig.load(file, LoggerFactory.getLogger("test"));
         assertEquals(4, config.maxScale());
-        assertEquals(49, config.palette().size());
+        assertEquals(53, config.palette().size());
     }
 
     @Test

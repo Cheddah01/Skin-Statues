@@ -57,7 +57,11 @@ class DefaultPaletteGoldenTest {
             "brown_wool=#724728",
             "green_wool=#546D1B",
             "red_wool=#A02722",
-            "black_wool=#141519");
+            "black_wool=#141519",
+            "smooth_quartz=#EDE6E0",
+            "smooth_sandstone=#E0D6AA",
+            "stripped_jungle_log=#AB8555",
+            "brown_mushroom_block=#957051");
 
     @Test
     void defaultPaletteMatchesTheCanonicalOrderedDefinition() {
