@@ -65,9 +65,9 @@ class BlockPaletteTest {
     }
 
     @Test
-    void theBuiltInPaletteIsBroadAndFreeOfDuplicates() {
+    void theBuiltInPaletteIsBalancedAndFreeOfDuplicates() {
         BlockPalette palette = BlockPalette.defaults();
-        assertTrue(palette.size() >= 60, "a usable pixel-art palette needs plenty of tones");
+        assertEquals(49, palette.size(), "the curated set contains concrete, terracotta, and wool");
 
         Set<Material> materials = new java.util.HashSet<>();
         Set<Integer> colours = new java.util.HashSet<>();
@@ -103,6 +103,32 @@ class BlockPaletteTest {
     }
 
     @Test
+    void representativeColoursHaveStableVisualMappings() {
+        BlockPalette palette = BlockPalette.defaults();
+        Map<Integer, Material> mappings = Map.ofEntries(
+                Map.entry(0xF5F5F5, Material.WHITE_WOOL),
+                Map.entry(0xE8E8E8, Material.WHITE_WOOL),
+                Map.entry(0xA0A0A0, Material.LIGHT_GRAY_WOOL),
+                Map.entry(0x454545, Material.GRAY_WOOL),
+                Map.entry(0x101010, Material.BLACK_CONCRETE),
+                Map.entry(0xF2C6A0, Material.WHITE_TERRACOTTA),
+                Map.entry(0xC58C62, Material.TERRACOTTA),
+                Map.entry(0x8D5524, Material.ORANGE_TERRACOTTA),
+                Map.entry(0x4A2C1A, Material.BROWN_TERRACOTTA),
+                Map.entry(0xD8788C, Material.PINK_WOOL),
+                Map.entry(0xB73535, Material.RED_WOOL),
+                Map.entry(0xD96B27, Material.ORANGE_CONCRETE),
+                Map.entry(0xE7BE55, Material.YELLOW_WOOL),
+                Map.entry(0x4E9A45, Material.LIME_CONCRETE),
+                Map.entry(0x35A7A7, Material.CYAN_WOOL),
+                Map.entry(0x62A9D8, Material.LIGHT_BLUE_WOOL),
+                Map.entry(0x263B75, Material.BLUE_TERRACOTTA),
+                Map.entry(0x7B4AA8, Material.PURPLE_WOOL));
+        mappings.forEach((rgb, material) -> assertEquals(material, palette.nearest(rgb),
+                () -> "unexpected mapping for #%06X".formatted(rgb)));
+    }
+
+    @Test
     void exclusionsAndExtrasRebuildThePalette() {
         BlockPalette custom = BlockPalette.custom(
                 Set.of(Material.WHITE_CONCRETE), Map.of(Material.CALCITE, 0xFFFFFF));
@@ -113,16 +139,16 @@ class BlockPaletteTest {
     @Test
     void anExtraColourRetunesAnExistingBlockInsteadOfDuplicatingIt() {
         int before = BlockPalette.defaults().size();
-        BlockPalette custom = BlockPalette.custom(Set.of(), Map.of(Material.STONE, 0x010203));
+        BlockPalette custom = BlockPalette.custom(Set.of(), Map.of(Material.GRAY_CONCRETE, 0x010203));
         assertEquals(before, custom.size());
-        assertEquals(Material.STONE, custom.nearest(0x010203));
+        assertEquals(Material.GRAY_CONCRETE, custom.nearest(0x010203));
     }
 
     @Test
     void anExcludedBlockCannotBeAddedBackAsAnExtra() {
         BlockPalette custom = BlockPalette.custom(
-                Set.of(Material.STONE), Map.of(Material.STONE, 0x010203));
-        assertFalse(custom.entries().stream().anyMatch(e -> e.material() == Material.STONE));
+                Set.of(Material.GRAY_CONCRETE), Map.of(Material.GRAY_CONCRETE, 0x010203));
+        assertFalse(custom.entries().stream().anyMatch(e -> e.material() == Material.GRAY_CONCRETE));
     }
 
     @Test

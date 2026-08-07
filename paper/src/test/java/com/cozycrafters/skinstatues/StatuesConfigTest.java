@@ -103,13 +103,13 @@ class StatuesConfigTest {
         StatuesConfig config = from("""
                 palette:
                   excluded:
-                    - GOLD_BLOCK
-                    - minecraft:diamond_block
+                    - WHITE_CONCRETE
+                    - minecraft:cyan_concrete
                   extra:
                     BONE_BLOCK: "#E1DDCD"
                 """);
-        assertFalse(hasMaterial(config, Material.GOLD_BLOCK));
-        assertFalse(hasMaterial(config, Material.DIAMOND_BLOCK), "the minecraft: prefix is accepted");
+        assertFalse(hasMaterial(config, Material.WHITE_CONCRETE));
+        assertFalse(hasMaterial(config, Material.CYAN_CONCRETE), "the minecraft: prefix is accepted");
         assertTrue(hasMaterial(config, Material.BONE_BLOCK));
     }
 
@@ -121,11 +121,11 @@ class StatuesConfigTest {
                     - NOT_A_REAL_BLOCK
                   extra:
                     ALSO_NOT_REAL: "#FFFFFF"
-                    STONE: "purple"
+                    GRAY_CONCRETE: "purple"
                     ANDESITE: "#12345"
                 """);
         assertNotNull(config.palette());
-        assertTrue(hasMaterial(config, Material.STONE), "a bad colour leaves the built-in entry alone");
+        assertTrue(hasMaterial(config, Material.GRAY_CONCRETE), "a bad colour leaves the built-in entry alone");
     }
 
     @Test
