@@ -8,7 +8,9 @@ can integrate naturally with its own Minecraft ecosystem.
 ## Implementations
 
 - **[Paper](paper/)** — available as a Paper server plugin.
-- **[Fabric](fabric/)** — available as a server-authoritative Fabric mod.
+- **[Fabric](fabric/)** — available as a server-authoritative Fabric mod,
+  built per Minecraft version. The Fabric documentation lists the supported
+  versions and their downloads.
 
 Both implementations provide full 3D skin geometry, classic and slim model
 support, configurable block palettes and scale, incremental construction, and

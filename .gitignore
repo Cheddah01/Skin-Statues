@@ -1,8 +1,8 @@
 target/
-fabric/.gradle/
-fabric/build/
-fabric/run/
-fabric/logs/
+fabric/*/.gradle/
+fabric/*/build/
+fabric/*/run/
+fabric/*/logs/
 *.iml
 *.log
 *.tmp
