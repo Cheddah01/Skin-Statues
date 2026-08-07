@@ -16,6 +16,10 @@ matching the Minecraft version used by your server or game.
 | [26.2](./26.2/) | Supported |
 | [26.1.2](./26.1.2/) | Supported |
 
+Minecraft 26.2 includes an optional client-side command menu with a rebindable
+`[` shortcut. Fabric 26.1.2 does not include that client menu yet. Both builds
+continue to support server-only installation and their normal commands.
+
 Each version directory contains its own documentation, including installation,
 commands, configuration, and build-from-source instructions.
 

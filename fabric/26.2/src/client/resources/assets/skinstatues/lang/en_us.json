@@ -1,0 +1,13 @@
+{
+  "key.category.skinstatues.main": "SkinStatues",
+  "key.skinstatues.open_menu": "Open SkinStatues Menu",
+  "screen.skinstatues.title": "SkinStatues",
+  "screen.skinstatues.player": "Player Skin",
+  "screen.skinstatues.scale": "Scale",
+  "screen.skinstatues.create": "Create Statue",
+  "screen.skinstatues.undo": "Undo Last Statue",
+  "screen.skinstatues.unavailable": "Unavailable on this server or you don't have permission.",
+  "screen.skinstatues.validation.player_required": "Enter a player name.",
+  "screen.skinstatues.validation.player_invalid": "Use letters, numbers, or underscores only.",
+  "screen.skinstatues.validation.scale_invalid": "Scale must be a positive whole number."
+}

@@ -11,6 +11,10 @@ models with a head, torso, arms, and legs. It supports classic and slim arms,
 transparent pixels, optional outer layers, perceptual block-color matching,
 incremental construction, and a conservative one-statue undo.
 
+Minecraft 26.2 also includes an optional client-side convenience menu. The
+commands remain the public interface and the server remains authoritative for
+permissions, validation, skin lookup, placement, and undo.
+
 ## Requirements
 
 - Minecraft Java Edition 26.2
@@ -18,18 +22,38 @@ incremental construction, and a conservative one-statue undo.
 - Fabric Loader 0.19.3 or newer compatible 0.19.x release
 - Fabric API 0.156.0+26.2 or newer release for Minecraft 26.2
 
-This is a server-authoritative mod made entirely from vanilla blocks. Install
-SkinStatues and Fabric API on the server. Connecting players do not need
-SkinStatues on their clients to see or interact with statues. The same common
-server code also works in an integrated single-player server when the mod and
-Fabric API are installed in that instance.
+This is a server-authoritative mod made entirely from vanilla blocks. The same
+common server code also works in an integrated single-player server when the
+mod and Fabric API are installed in that instance.
 
-## Installation
+## Server-only installation
 
 1. Install Fabric Loader for Minecraft 26.2 on the server.
 2. Add Fabric API for Minecraft 26.2 to the server's `mods` directory.
 3. Add `SkinStatues-Fabric-26.2.jar` to the same directory.
 4. Start the server.
+
+Connecting players do not need SkinStatues on their clients. Both
+`/statue <name> <scale>` and `/statue undo` continue to work normally, and
+everyone sees and interacts with the resulting vanilla blocks.
+
+## Optional client installation
+
+Players may also install the same `SkinStatues-Fabric-26.2.jar`, Fabric Loader,
+and Fabric API in their client. Press `[` in-game to open the SkinStatues menu.
+The default key can be changed under Minecraft's **Controls > Key Binds**
+settings in the **SkinStatues** category.
+
+The menu provides a player-name field, a scale field, **Create Statue**, and
+**Undo Last Statue**. It sends the normal `statue <name> <scale>` or
+`statue undo` command to the connected server; it does not download skins,
+plan statues, track undo state, or bypass server permissions on the client.
+
+Because the menu uses Minecraft's normal command tree and command dispatch,
+it can also be used with a compatible server exposing the normal SkinStatues
+`/statue` command, whether that server runs the Fabric or Paper edition. If the
+server does not expose the command to the player, the menu shows it as
+unavailable and disables both action buttons.
 
 ## Commands
 
