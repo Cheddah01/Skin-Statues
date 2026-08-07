@@ -1,0 +1,37 @@
+# CozyStatues configuration.
+#
+# Missing keys are filled in from the defaults on every start, so upgrades never
+# overwrite anything you have changed here.
+
+# Largest value accepted by /statue <name> <scale>.
+# Every skin pixel becomes a scale x scale x scale cube of blocks, so a statue
+# is 32 * scale blocks tall: scale 4 is already 128 blocks. Hard limit: 16.
+max-scale: 4
+
+# Blocks placed per server tick while a statue is being built. Lower this if
+# large statues cause noticeable lag, raise it to build faster.
+blocks-per-tick: 2500
+
+# Build the outer skin layer (hat, jacket, sleeves, pants) as a second shell
+# one block larger than the base layer.
+outer-layer: true
+
+# How long a resolved skin stays cached before it is fetched again, in minutes.
+# 0 disables caching. Failed lookups are always cached for one minute.
+skin-cache-minutes: 60
+
+palette:
+  # Blocks to drop from the built-in palette, by material name.
+  # Example:
+  #   excluded:
+  #     - GOLD_BLOCK
+  #     - DIAMOND_BLOCK
+  excluded: []
+
+  # Extra blocks to match against, as MATERIAL_NAME: "#RRGGBB". The colour is
+  # the average colour of the block's texture. Listing a block that is already
+  # in the built-in palette retunes its colour instead of adding it twice.
+  # Example:
+  #   extra:
+  #     WHITE_WOOL: "#E9ECEC"
+  extra: {}
