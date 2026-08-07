@@ -6,9 +6,9 @@
   Steve-range, and shaded skin-tone rendering.
 - Added Fabric support for Minecraft 26.2 while retaining the independent
   Minecraft 26.1.2 project.
-- Added an optional, command-backed client menu to Fabric 26.2 with a
-  rebindable `[` shortcut, compact responsive layout, create action, and undo
-  action. Paper and Fabric 26.1.2 remain command-only.
+- Added an optional, command-backed client menu to Fabric 26.2 and 26.1.2 with
+  a rebindable `[` shortcut, compact responsive layout, create action, and undo
+  action. Paper remains command-only.
 - Standardized Fabric production artifact names by platform and Minecraft
   compatibility: `SkinStatues-Fabric-26.2.jar` and
   `SkinStatues-Fabric-26.1.2.jar`.

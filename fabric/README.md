@@ -14,11 +14,11 @@ matching the Minecraft version used by your server or game.
 | Minecraft | SkinStatues | Optional Client GUI |
 | --------- | ----------- | ------------------- |
 | [26.2](./26.2/) | 1.1.0 | Yes |
-| [26.1.2](./26.1.2/) | 1.1.0 | No |
+| [26.1.2](./26.1.2/) | 1.1.0 | Yes |
 
-Minecraft 26.2 includes an optional client-side command menu with a rebindable
-`[` shortcut. Fabric 26.1.2 does not include that client menu yet. Both builds
-continue to support server-only installation and their normal commands.
+Both builds include an optional client-side command menu with a rebindable `[`
+shortcut. They continue to support server-only installation and their normal
+commands without requiring connecting players to install SkinStatues.
 
 Each version directory contains its own documentation, including installation,
 commands, configuration, and build-from-source instructions.
@@ -31,7 +31,7 @@ commands, configuration, and build-from-source instructions.
 - Refined 53-block color palette with improved natural skin-tone matching
 - Incremental, server-friendly construction and safe statue undo
 - Server-only operation on both versions; connecting players need no client mod
-- Optional command-backed client menu on Minecraft 26.2
+- Optional command-backed client menu on both supported Minecraft versions
 
 ## Maintenance model
 

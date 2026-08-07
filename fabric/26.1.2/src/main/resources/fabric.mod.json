@@ -12,7 +12,8 @@
   },
   "environment": "*",
   "entrypoints": {
-    "main": ["com.cozycrafters.skinstatues.fabric.SkinStatuesFabric"]
+    "main": ["com.cozycrafters.skinstatues.fabric.SkinStatuesFabric"],
+    "client": ["com.cozycrafters.skinstatues.fabric.client.SkinStatuesClient"]
   },
   "depends": {
     "fabricloader": ">=0.19.3",

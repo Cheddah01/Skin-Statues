@@ -36,21 +36,21 @@ Safely restores the blocks replaced by your most recently completed statue.
 | -------- | --------- | ----------- | --------------- | --- |
 | [Paper](paper/) | 26.1.2 (`26.1.2.build.70-stable`) | 1.1.0 | No | No |
 | [Fabric](fabric/) | [26.2](fabric/26.2/) | 1.1.0 | No | Optional |
-| [Fabric](fabric/) | [26.1.2](fabric/26.1.2/) | 1.1.0 | No | No |
+| [Fabric](fabric/) | [26.1.2](fabric/26.1.2/) | 1.1.0 | No | Optional |
 
 Fabric builds are Minecraft-version-specific. Use the project and JAR that
 exactly match the Minecraft version you are running.
 
 ## Optional Fabric Client Menu
 
-Fabric 26.2 users can optionally install SkinStatues on the client to add a
-small creation menu. Press `[` by default to open it; the key can be rebound in
-Minecraft's Controls menu. The menu provides a **Player** field, a **Scale**
-field, **Create Statue**, and **Undo Last Statue**.
+Fabric 26.2 and 26.1.2 users can optionally install SkinStatues on the client
+to add a small creation menu. Press `[` by default to open it; the key can be
+rebound in Minecraft's Controls menu. The menu provides a **Player** field, a
+**Scale** field, **Create Statue**, and **Undo Last Statue**.
 
 **The client mod is optional.** A Fabric server can run SkinStatues without
 requiring players to install it. The menu sends the existing `/statue`
-commands and is currently included only in the Fabric 26.2 build.
+commands and is included in both supported Fabric builds.
 
 ## Commands
 

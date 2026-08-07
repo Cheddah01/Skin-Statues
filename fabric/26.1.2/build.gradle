@@ -12,6 +12,17 @@ base {
 	archivesName = "${project.archives_base_name}-${project.minecraft_version}"
 }
 
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		skinstatues {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
 tasks.withType(AbstractArchiveTask).configureEach {
 	archiveVersion = ''
 }
