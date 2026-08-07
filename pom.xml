@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cozycrafters</groupId>
-    <artifactId>CozyStatues</artifactId>
+    <artifactId>SkinStatues</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>CozyStatues</name>
+    <name>SkinStatues</name>
     <description>Turns any Minecraft player's skin into a giant 3D block statue.</description>
 
     <properties>
@@ -49,7 +49,7 @@
     </dependencies>
 
     <build>
-        <finalName>CozyStatues</finalName>
+        <finalName>SkinStatues</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

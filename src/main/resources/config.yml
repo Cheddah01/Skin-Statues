@@ -1,4 +1,4 @@
-# CozyStatues configuration.
+# SkinStatues configuration.
 #
 # Missing keys are filled in from the defaults on every start, so upgrades never
 # overwrite anything you have changed here.

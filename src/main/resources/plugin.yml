@@ -1,16 +1,16 @@
-name: CozyStatues
+name: SkinStatues
 version: '${project.version}'
-main: com.cozycrafters.cozystatues.CozyStatuesPlugin
+main: com.cozycrafters.skinstatues.SkinStatuesPlugin
 api-version: '1.21'
 author: Cozy Crafters
 description: Turns any Minecraft player's skin into a giant 3D block statue.
 # No load-order edges: skins are resolved through Paper's own profile API and a
-# plain HTTPS download, so CozyStatues depends on nothing but the server.
+# plain HTTPS download, so SkinStatues depends on nothing but the server.
 commands:
   statue:
     description: Builds a giant block statue or undoes your latest completed one.
     usage: /<command> <name> <scale> | /<command> undo
 permissions:
-  cozystatues.use:
+  skinstatues.use:
     description: Allows building and undoing statues with /statue.
     default: op

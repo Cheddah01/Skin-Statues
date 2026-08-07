@@ -1,4 +1,4 @@
-# CozyStatues
+# SkinStatues
 
 Turns any Minecraft player's skin into a giant, full 3D block statue.
 
@@ -16,9 +16,9 @@ with every skin colour matched to the closest suitable building block.
 
 ## Installation
 
-1. Drop `CozyStatues.jar` into `plugins/`.
-2. Restart the server. `plugins/CozyStatues/config.yml` is written on first start.
-3. Grant `cozystatues.use` to whoever should be able to build statues.
+1. Drop `SkinStatues.jar` into `plugins/`.
+2. Restart the server. `plugins/SkinStatues/config.yml` is written on first start.
+3. Grant `skinstatues.use` to whoever should be able to build statues.
 
 ## Command
 
@@ -50,7 +50,7 @@ Example:
 
 | Node | Default | Grants |
 | --- | --- | --- |
-| `cozystatues.use` | op | `/statue` |
+| `skinstatues.use` | op | `/statue` |
 
 ## Placement
 
@@ -121,9 +121,9 @@ blocks and takes about half a minute of build time at the default rate.
 - If Mojang's services are unreachable, statues of players already in the cache
   keep working; anyone else fails cleanly.
 
-## Not in this phase
+## Scope
 
-Deliberately absent, and structured so they can be added cleanly later:
-statue persistence and management, poses, held items, armour,
-alternative palettes per statue, and any GUI. The command surface is meant to
-stay exactly `/statue <name> <scale>` and `/statue undo`.
+SkinStatues intentionally keeps its command surface to
+`/statue <name> <scale>` and `/statue undo`. It does not provide statue
+persistence or management, poses, held items, armour, per-statue palettes, or
+a GUI.
